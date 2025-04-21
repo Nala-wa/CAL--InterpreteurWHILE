@@ -3,9 +3,9 @@ package interpreter
 /*
  * VEUILLEZ INSCRIRE CI-DESSOUS VOTRE NOM ET VOTRE PRENOM :
  *
- * ETUDIANT 1 :
+ * ETUDIANT 1 : AUVRAY Naomi
  *
- * ETUDIANT 2 :
+ * ETUDIANT 2 : LEBAUD Antoine
  *
  */
 
@@ -49,8 +49,8 @@ object Interpreter {
     *   valeur par défaut si la variable v n'est pas présente dans la mémoire
     *   mem
     */
-  // TODO PROJET2
-  def lookUp(v: Variable, mem: Memory): Value = ???
+  def lookUp(v: Variable, mem: Memory): Value =
+    mem.getOrElse(v,NlValue)
 
   /** @param v
     *   : une variable
@@ -61,8 +61,9 @@ object Interpreter {
     * @return
     *   la mémoire modifiée par l'affectation [v->d]
     */
-  // TODO PROJET2
-  def assign(v: Variable, d: Value, mem: Memory): Memory = ???
+
+  def assign(v: Variable, d: Value, mem: Memory): Memory =
+    mem.updated(v,d)
 
 
   /** TRAITEMENT DES EXPRESSIONS DU LANGAGE WHILE

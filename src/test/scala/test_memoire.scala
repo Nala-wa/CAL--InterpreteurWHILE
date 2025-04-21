@@ -1,8 +1,7 @@
 package interpreter
 
+import org.junit.Assert.*
 import org.junit.Test
-import org.junit.Assert._
-
 import interpreter.Interpreter._
 
 class TestsMemoire {

@@ -1,8 +1,10 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
+name := "Interpreter"
+version := "0.1"
+scalaVersion := "3.3.4"
 
-ThisBuild / scalaVersion := "3.3.5"
+// Java dependencies
+libraryDependencies += "junit" % "junit" % "4.12" % Test
+libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test exclude ("juni", "junit-dep")
 
-lazy val root = (project in file("."))
-  .settings(
-    name := "proj-inter"
-  )
+// Scala dependencies
+libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "2.2.0"
