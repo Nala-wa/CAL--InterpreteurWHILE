@@ -75,7 +75,17 @@ object Interpreter {
    *   la valeur de l'expression
    */
   // TODO PROJET2
-  def interpreterExpr(expression: Expression, mem: Memory): Value = ???
+  def interpreterExpr(expression: Expression, mem: Memory): Value =
+    expression match {
+      case Nl => NlValue
+      case Cst(name) => CstValue(name)
+      case VarExp(name) => lookUp(Var(name), mem)
+      case Cons(expr1,expr2) => ConsValue(interpreterExpr(expr1, mem), interpreterExpr(expr2, mem))
+      case Hd(expr) => ???
+      case Tl(expr) => ???
+      case Eq(expr1,expr2) => ???
+    }
+
 
   /** La fonction interpreterExpr ci-dessus calcule la valeur associée à une
    * expression ; il peut être utile de produire à l'inverse une expression
