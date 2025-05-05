@@ -116,11 +116,14 @@ object Interpreter {
     command match {
       case Nop => memory
       case Set(variable : Variable, valeur :Value) => assign(variable, valeur, memory)
-      case While(exp : Expression, command : Command) => ???
-      case For (count : Int, exp : Expression) => 
+      case While(condition: Expression, body: List[Command]) => 
+        condition match{
+          case true
+        }
+      case For (count: Expression, body: List[Command]) => 
         count match {
-          case 0 => ???
-          case _ =>count --
+          case 0 => interpreterExpr(exp,memory)
+          case x => interpreterCommand(For(x-1, exp), memory)
         } 
       case If => ???
     }
