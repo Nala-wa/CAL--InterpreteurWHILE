@@ -155,7 +155,13 @@ object Interpreter {
    *   la mémoire après l'interprétation de la liste de commandes
    */
   // TODO PROJET2
-  def interpreterCommands(commands: List[Command], memory: Memory): Memory = ???
+  def interpreterCommands(commands: List[Command], memory: Memory): Memory =
+      commands match{
+        case Nil => memory
+        case x::NIl => interpreterExpr(x,memory)
+        case x::xs => interpreterExpr(x,memory)::interpreterCommands(xs,memory)
+      }
+    )
     
 
 
