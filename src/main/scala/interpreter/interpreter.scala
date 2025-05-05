@@ -81,9 +81,21 @@ object Interpreter {
       case Cst(name) => CstValue(name)
       case VarExp(name) => lookUp(Var(name), mem)
       case Cons(expr1,expr2) => ConsValue(interpreterExpr(expr1, mem), interpreterExpr(expr2, mem))
-      case Hd(expr) => ???
-      case Tl(expr) => ???
-      case Eq(expr1,expr2) => ???
+      case Hd(expr) => interpreterExpr(expr, mem) match {
+        case ConsValue(hd, _) => hd
+        case _ => throw ExceptionListeVide
+      }
+      case Tl(expr) => interpreterExpr(expr, mem) match {
+        case ConsValue(_, tl) => tl
+        case _ => throw ExceptionListeVide
+      }
+      case Eq(expr1, expr2) => interpreterExpr(expr1, mem) match {
+        case ConsValue(hd1, tl1) => interpreterExpr(expr2, mem) match {
+          case ConsValue(hd2, tl2) => if (hd1 == hd2 && tl1 == tl2) CstValue("true") else CstValue("false")
+          case _ => throw ExceptionListeVide
+        }
+        case _ => throw ExceptionListeVide
+      }
     }
 
 
@@ -98,7 +110,12 @@ object Interpreter {
    *   l'AST décrivant l'expression de cette valeur
    */
   // TODO PROJET2
-  def valueToExpression(value: Value): Expression = ???
+  def valueToExpression(value: Value): Expression =
+    value match {
+      case NlValue => Nl
+      case CstValue(name) => Cst(name)
+      case ConsValue(arg1, arg2) => Cons(valueToExpression(arg1), valueToExpression(arg2))
+    }
 
 
   /** TRAITEMENT DES COMMANDES DU LANGAGE WHILE
