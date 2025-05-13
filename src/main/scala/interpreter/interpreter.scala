@@ -158,8 +158,9 @@ object Interpreter {
   def interpreterCommands(commands: List[Command], memory: Memory): Memory =
       commands match{
         case Nil => memory
-        case x::NIl => interpreterExpr(x,memory)
-        case x::xs => interpreterExpr(x,memory)::interpreterCommands(xs,memory)
+        case head :: tail => 
+        val nouvmemoir = interpreterCommand(head,memory)
+        interpreterCommands(tail,nouvmemoir)
       }
     )
     
