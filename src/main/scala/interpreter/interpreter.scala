@@ -132,16 +132,25 @@ object Interpreter {
   def interpreterCommand(command: Command, memory: Memory): Memory =
     command match {
       case Nop => memory
-      case Set(variable : Variable, valeur :Value) => assign(variable, valeur, memory)
+      
+      case Set(variable : Variable, expr : Expression) => assign(variable, interpreterExpr(expr, memory), memory)
+      
       case While(condition: Expression, body: List[Command]) => 
         condition match{
-          case true
+          case Nil => memory
+          case _  => 
+          val NouvMemoire = interpreterCommands(body, memory)
+          interpreteurCommad(While(condition,body),NouvMemoire)
+          
+          
         }
+      
       case For (count: Expression, body: List[Command]) => 
         count match {
           case 0 => interpreterExpr(exp,memory)
           case x => interpreterCommand(For(x-1, exp), memory)
         } 
+      
       case If => ???
     }
 
@@ -162,7 +171,7 @@ object Interpreter {
         val nouvmemoir = interpreterCommand(head,memory)
         interpreterCommands(tail,nouvmemoir)
       }
-    )
+    
     
 
 
